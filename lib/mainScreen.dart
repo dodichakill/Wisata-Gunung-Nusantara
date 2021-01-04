@@ -7,7 +7,7 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Wisata Gunung Nusantara'),
+        title: Text('Wisata Gunung Nusantara',),
       ),
       body: ListView(
         children: dataGunungList.map((place) {
