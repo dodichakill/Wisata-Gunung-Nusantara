@@ -7,10 +7,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Wisata Gunung Nusantara',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.red,
-        cardTheme: CardTheme(color: Colors.blue),
+        primarySwatch: Colors.green,
+        cardTheme: CardTheme(color: Colors.green),
       ),
       home: MainScreen(),
     );

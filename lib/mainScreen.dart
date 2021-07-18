@@ -7,10 +7,13 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Wisata Gunung Nusantara',),
+        title: Text(
+          'Wisata Gunung Nusantara',
+        ),
       ),
       body: ListView(
         children: dataGunungList.map((place) {
+          // ignore: deprecated_member_use
           return FlatButton(
             onPressed: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -19,39 +22,54 @@ class MainScreen extends StatelessWidget {
             },
             child: Card(
               margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: Row(
-                crossAxisAlignment: 
-                CrossAxisAlignment.start,
-                children: <Widget>[
-                  Expanded(
-                    flex: 1,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Image.asset(place.assets)
+              child: Material(
+                elevation: 3,
+                color: Colors.transparent,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Expanded(
+                      flex: 1,
+                      child: Hero(
+                          tag: place.tag ?? '',
+                          child: Image.asset(
+                            place.assets,
+                            height: 80,
+                            width: 100,
+                            fit: BoxFit.cover,
+                          )),
                     ),
-                    
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            place.nama,
-                            style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w700, color: Colors.white),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(place.lokasi,
-                          style: TextStyle(fontSize: 13.5, fontWeight: FontWeight.w400, color: Colors.white70)),
-                        ],
+                    Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              place.nama,
+                              style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.yellow),
+                            ),
+                            SizedBox(height: 5),
+                            Text(place.lokasi,
+                                style: TextStyle(
+                                    fontSize: 13,
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.amber)),
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
           );

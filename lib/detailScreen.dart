@@ -7,21 +7,22 @@ var informationTextStyle = TextStyle(
 );
 
 class DetailScreen extends StatelessWidget {
-  final dataGunung place;
+  final DataGunung place;
 
   DetailScreen({@required this.place});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueAccent,
+      floatingActionButton: FavoriteButton(),
+      backgroundColor: Colors.lightGreen[200],
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Stack(
               children: <Widget>[
-                Image.asset(place.assets),
+                Hero(tag: place.tag ?? '', child: Image.asset(place.assets)),
                 SafeArea(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -32,35 +33,47 @@ class DetailScreen extends StatelessWidget {
                           Navigator.pop(context);
                         },
                       ),
-                      FavoriteButton(),
                     ],
                   ),
                 ),
               ],
             ),
             Container(
-              padding: EdgeInsets.only(top: 16.0, bottom: 16),
-              color: Colors.lightBlue,
+              padding: EdgeInsets.only(top: 10.0, bottom: 10),
+              color: Colors.green,
               child: Text(
                 place.nama,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 30.0,
+                  fontSize: 25.0,
                   fontFamily: 'Staatliches',
                   color: Colors.yellowAccent,
                 ),
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(vertical: 16.0),
-              color: Colors.orange,
+              color: Colors.green[600],
               padding: EdgeInsets.only(top: 12, bottom: 12),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Column(
                     children: <Widget>[
-                      Icon(Icons.location_pin),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.location_pin,
+                            color: Colors.amber,
+                          ),
+                          Text(
+                            'Lokasi',
+                            style: TextStyle(
+                                color: Colors.yellow,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15),
+                          )
+                        ],
+                      ),
                       SizedBox(height: 8.0),
                       Text(
                         '${place.lokasi}',
@@ -72,7 +85,21 @@ class DetailScreen extends StatelessWidget {
                   ),
                   Column(
                     children: <Widget>[
-                      Icon(Icons.monetization_on),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.monetization_on,
+                            color: Colors.amber,
+                          ),
+                          Text(
+                            'Tiket Masuk',
+                            style: TextStyle(
+                                color: Colors.yellow,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15),
+                          )
+                        ],
+                      ),
                       SizedBox(height: 8.0),
                       Text(
                         place.harga,
@@ -90,7 +117,8 @@ class DetailScreen extends StatelessWidget {
               child: Text(
                 place.deskripsi,
                 textAlign: TextAlign.justify,
-                style: TextStyle(fontSize: 16.0, color: Colors.white70),
+                style: TextStyle(
+                    fontSize: 16.0, color: Colors.black87, height: 1.7),
               ),
             ),
           ],
@@ -110,16 +138,21 @@ class _FavoriteButtonState extends State<FavoriteButton> {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      icon: Icon(
-        isFavorite ? Icons.favorite : Icons.favorite_border,
-        color: Colors.red,
+    return Container(
+      decoration: BoxDecoration(
+          color: Colors.amber.withOpacity(0.75),
+          borderRadius: BorderRadius.circular(10)),
+      child: IconButton(
+        icon: Icon(
+          isFavorite ? Icons.favorite : Icons.favorite_border,
+          color: Colors.red,
+        ),
+        onPressed: () {
+          setState(() {
+            isFavorite = !isFavorite;
+          });
+        },
       ),
-      onPressed: () {
-        setState(() {
-          isFavorite = !isFavorite;
-        });
-      },
     );
   }
 }
